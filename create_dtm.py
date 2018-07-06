@@ -48,8 +48,6 @@ def get_lists():
 			running = text.split(":")
 	return nested
 
-
-
 def get_stemmed_stops():
 	http = urllib3.PoolManager()
 	r = http.request('GET', 'http://www.ai.mit.edu/projects/jmlr/papers/volume5/lewis04a/a11-smart-stop-list/english.stop')
@@ -59,8 +57,6 @@ def get_stemmed_stops():
 	for word in cleaned_stops:
 		stemmed_stops.add(word)
 	return stemmed_stops
-
-
 
 def count_unigrams_trigrams(statements):
 	unigrams = collections.defaultdict(int)
@@ -96,15 +92,8 @@ def write_doc_matrix(statements, unigrams, trigrams):
 
 
 class Statement(object):
+    #should be redesigned
     def __init__(self, number, speaker, text, stops):
-        '''
-        Constructor 
-        Inputs:
-            number (int): the statement number
-            speaker (string): the speaker
-            text (string): the text
-            stops (list of strings): list of stemmed stop words
-        '''
         self.number = number
         self.speaker = speaker
         self.tokens = self.stem_text(self.prepare_text(text), stops)
